@@ -38,7 +38,9 @@ def build_pipeline(device, width, height, fps, fmt):
 def describe_device(device):
     print(f"Probing supported formats for {device}...")
     subprocess.run(["v4l2-ctl", "-d", device, "--list-formats-ext"], check=False)
-    print("\nPick the fastest supported format for your capture card (MJPG or YUYV/YUY2).\n")
+    print(
+        "\nPick the fastest supported format for your capture card (MJPG or YUYV/YUY2).\n"
+    )
 
 
 def run_gst(pipeline):
@@ -52,7 +54,9 @@ def main():
     parser = argparse.ArgumentParser(
         description="Low-latency HDMI capture wrapper using GStreamer and v4l2."
     )
-    parser.add_argument("device", nargs="?", default=DEFAULT_DEVICE, help="v4l2 device path")
+    parser.add_argument(
+        "device", nargs="?", default=DEFAULT_DEVICE, help="v4l2 device path"
+    )
     parser.add_argument("--width", type=int, default=1280, help="capture width")
     parser.add_argument("--height", type=int, default=720, help="capture height")
     parser.add_argument("--fps", type=int, default=60, help="capture framerate")
@@ -75,7 +79,9 @@ def main():
     if args.probe:
         describe_device(args.device)
 
-    pipeline = build_pipeline(args.device, args.width, args.height, args.fps, args.format)
+    pipeline = build_pipeline(
+        args.device, args.width, args.height, args.fps, args.format
+    )
     run_gst(pipeline)
 
 
